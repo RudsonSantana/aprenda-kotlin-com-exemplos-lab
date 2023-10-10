@@ -1,21 +1,41 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+class Usuario (val nome: String, var email: String) {
+    override fun toString(): String {
+        return "Nome: $nome \nEmail: $email\n"
+    }
+}
 
-class Usuario
+data class ConteudoEducacional(val nome: String, val duracao: Int) {
+    override fun toString(): String {
+        return "\n• $nome - $duracao min"
+    }
+}
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
-
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+data class Formacao(val nome: String, var conteudos: MutableList<ConteudoEducacional>, var nivel: Nivel) {
 
     val inscritos = mutableListOf<Usuario>()
     
     fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+        inscritos.add(usuario)
+    }
+    
+    override fun toString(): String {
+        return "Formação: $nome - $nivel \nConteúdos: $conteudos"
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    	val usuario = Usuario("Rudson", "rudson@email.com")
+        val usuario2 = Usuario("Venilton ", "venilton@email.com")
+        
+        var conteudoKotlin = ConteudoEducacional("Introdução à Kotlin", 120)
+        var conteudoKotlin2 = ConteudoEducacional("Orientação à Objetos e Tipos de Classes em Kotlin", 120)
+        
+        val formacao = Formacao("Kotlin", mutableListOf(conteudoKotlin, conteudoKotlin2), Nivel.INTERMEDIARIO)
+        
+        println(usuario)
+        println(usuario2)
+        
+        println(formacao)
 }
